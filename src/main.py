@@ -7,7 +7,7 @@ class MainPanel(wx.Panel):
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
         info_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        status_box = wx.StaticBox(self, wx.ID_ANY, size=(300, 200), label="Status:")
+        status_box = wx.StaticBox(self, wx.ID_ANY, size=(500, 300), label="Status:")
         status_box_sizer = wx.StaticBoxSizer(status_box, wx.VERTICAL)
 
         btn_data = [("Check updates", btn_sizer, self.check_updates),
@@ -23,9 +23,9 @@ class MainPanel(wx.Panel):
         krl_logo_bitmap = wx.StaticBitmap(self, wx.ID_ANY, wx.Bitmap(krl_logo_img))
 
         info_sizer.Add(krl_logo_bitmap, wx.ALL | wx.ALIGN_LEFT, 5)
-        info_sizer.Add(status_box_sizer, wx.ALL | wx.EXPAND | wx.ALIGN_TOP, 5)
+        info_sizer.Add(status_box_sizer, 0, wx.ALL | wx.EXPAND, 5)
 
-        main_sizer.Add(info_sizer, wx.ALIGN_TOP,5)
+        main_sizer.Add(info_sizer, wx.ALIGN_TOP, 5)
         main_sizer.Add(btn_sizer, wx.ALIGN_BOTTOM, 5)
         self.SetSizer(main_sizer)
 
