@@ -25,7 +25,13 @@ class MainPanel(wx.Panel):
         info_sizer.Add(krl_logo_bitmap, wx.ALL | wx.ALIGN_LEFT, 5)
         info_sizer.Add(status_box_sizer, 0, wx.ALL | wx.EXPAND, 5)
 
+        authors_text = wx.StaticText(self, wx.ID_ANY, label="KRL Updater made by K. Szpieg && H. Szolc",
+                                          style=wx.ALIGN_CENTER)
+        font = wx.Font(9, wx.DEFAULT, wx.ITALIC, wx.NORMAL)
+        authors_text.SetFont(font)
+
         main_sizer.Add(info_sizer, wx.ALIGN_TOP, 5)
+        main_sizer.Add(authors_text, wx.ALIGN_CENTER, 5)
         main_sizer.Add(btn_sizer, wx.ALIGN_BOTTOM, 5)
         self.SetSizer(main_sizer)
 
@@ -50,7 +56,7 @@ class MainFrame(wx.Frame):
         h = screensize[1] * 0.15
         self.SetMinSize(self.GetSize())
         size = (int(w), int(h))
-        size2 = ((size[0]*2),(size[1]*2))
+        size2 = ((size[0] * 2), (size[1] * 2))
         self.SetInitialSize(size)
         self.SetMaxSize(size2)
         self.Show()
