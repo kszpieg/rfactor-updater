@@ -6,7 +6,8 @@ class MainPanel(wx.Panel):
         super().__init__(parent)
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        status_box = wx.StaticBox(self, wx.ID_ANY, "Status:")
+        info_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        status_box = wx.StaticBox(self, wx.ID_ANY, size=(300, 200), label="Status:")
         status_box_sizer = wx.StaticBoxSizer(status_box, wx.VERTICAL)
 
         btn_data = [("Check updates", btn_sizer, self.check_updates),
@@ -15,10 +16,16 @@ class MainPanel(wx.Panel):
             label, sizer, handler = data
             self.btn_builder(label, sizer, handler)
 
-        self.status_text = wx.StaticText(status_box, wx.ID_ANY, label="It's works!", style=wx.ALIGN_CENTER)
+        self.status_text = wx.StaticText(status_box, wx.ID_ANY, label="It works!", style=wx.ALIGN_CENTER)
         status_box_sizer.Add(self.status_text, wx.ID_ANY, wx.TOP, 10)
 
-        main_sizer.Add(status_box_sizer, wx.ALL | wx.EXPAND | wx.ALIGN_TOP, 5)
+        krl_logo_img = wx.Image("../img/krl_logo.png", wx.BITMAP_TYPE_PNG)
+        krl_logo_bitmap = wx.StaticBitmap(self, wx.ID_ANY, wx.Bitmap(krl_logo_img))
+
+        info_sizer.Add(krl_logo_bitmap, wx.ALL | wx.ALIGN_LEFT, 5)
+        info_sizer.Add(status_box_sizer, wx.ALL | wx.EXPAND | wx.ALIGN_TOP, 5)
+
+        main_sizer.Add(info_sizer, wx.ALIGN_TOP,5)
         main_sizer.Add(btn_sizer, wx.ALIGN_BOTTOM, 5)
         self.SetSizer(main_sizer)
 
@@ -36,12 +43,14 @@ class MainPanel(wx.Panel):
 
 class MainFrame(wx.Frame):
     def __init__(self):
-        super().__init__(parent=None, title="KRL Updater")
+        super(MainFrame, self).__init__(parent=None, title="KRL Updater")
         self.panel = MainPanel(self)
         screensize = wx.DisplaySize()
-        w = screensize[0] * 0.15
-        h = screensize[1] * 0.05
-        self.SetMinSize((w, h))
+        w = screensize[0] * 0.20
+        h = screensize[1] * 0.15
+        self.SetMinSize(self.GetSize())
+        size = (int(w), int(h))
+        self.SetInitialSize(size)
         self.Show()
 
 
