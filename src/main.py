@@ -1,4 +1,5 @@
 import wx
+import krl_ftpservices as krl
 
 
 class MainPanel(wx.Panel):
@@ -26,7 +27,7 @@ class MainPanel(wx.Panel):
         info_sizer.Add(status_box_sizer, 0, wx.ALL | wx.EXPAND, 5)
 
         authors_text = wx.StaticText(self, wx.ID_ANY, label="KRL Updater made by K. Szpieg && H. Szolc",
-                                          style=wx.ALIGN_CENTER)
+                                     style=wx.ALIGN_CENTER)
         font = wx.Font(9, wx.DEFAULT, wx.ITALIC, wx.NORMAL)
         authors_text.SetFont(font)
 
@@ -42,9 +43,11 @@ class MainPanel(wx.Panel):
 
     def check_updates(self, event):
         self.status_text.SetLabel("check updates btn")
+        krl.connect_to_ftp_server()
 
     def download_files(self, event):
         self.status_text.SetLabel("download files btn")
+        krl.download_btn_functionality()
 
 
 class MainFrame(wx.Frame):
