@@ -5,9 +5,6 @@ import io
 
 server = "54.38.52.41"
 rfactor_dir = "rFactor"
-source = "/rFactor/"
-destination = "./download/"
-interval = 0.05
 ftp = ftplib.FTP(server)
 
 
