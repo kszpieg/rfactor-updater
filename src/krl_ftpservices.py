@@ -45,8 +45,10 @@ def create_list_of_files(path):
 
 
 def download_files():
-    ftp_link = "ftp://" + server + "/" + rfactor_dir
-    wget.download(ftp_link)
+    for file in list_of_files:
+        ftp_link = "ftp://" + server + file
+        # print(ftp_link)
+        wget.download(ftp_link)
 
 
 def download_btn_functionality():
