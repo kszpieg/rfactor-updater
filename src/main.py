@@ -50,7 +50,9 @@ class MainFrame(wx.Frame):
         h = screensize[1] * 0.15
         self.SetMinSize(self.GetSize())
         size = (int(w), int(h))
+        size2 = ((size[0]*2),(size[1]*2))
         self.SetInitialSize(size)
+        self.SetMaxSize(size2)
         self.Show()
 
 
