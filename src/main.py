@@ -53,13 +53,13 @@ class MainPanel(wx.Panel):
         self.SetSizer(main_sizer)
 
     def check_updates(self, event):
-        self.status_text.SetLabel("check updates btn")
         krl.connect_to_ftp_server()
         self.download_files_btn.Enable()
+        wx.MessageBox("Updates loaded...", 'Info', wx.OK | wx.ICON_INFORMATION)
 
     def download_files(self, event):
-        self.status_text.SetLabel("download files btn")
         krl.download_btn_functionality()
+        wx.MessageBox("Update download successfully", 'Info', wx.OK | wx.ICON_INFORMATION)
 
 
 class MainFrame(wx.Frame):
