@@ -24,7 +24,8 @@ def check_updates():
         time = parser.parse(time_str)
         updates[tokens[3]] = datetime.strftime(time, "%Y-%m-%d %H:%M")
 
-    return updates
+    ordered_updates = (sorted(updates.items(), key=lambda t: t[1], reverse=False))
+    return ordered_updates
 
 
 def download_files(update_dir):
