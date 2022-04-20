@@ -3,6 +3,7 @@ import os
 
 server = "54.38.52.41"
 rfactor_dir = "/rFactor/"
+logfile = "krl_update.log"
 ftp = ftplib.FTP(server)
 list_of_files = []
 list_of_folders = []
@@ -15,7 +16,14 @@ def connect_to_ftp_server():
 
 def download_files():
     ftp_link = "ftp://" + server + rfactor_dir
-    os.system('wget -r -np -nH ' + ftp_link + ' -P ./download/')
+    os.system('wget -r -np -nH --cut-dirs=1 ' + ftp_link + ' -P ./download/' + ' -o ' + logfile)
+    with open(logfile, "r+") as file:
+        new_file = file.readlines()
+        file.seek(0)
+        for line in new_file:
+            if "anonymous" not in line:
+                file.write(line)
+        file.truncate()
 
 
 def download_btn_functionality():
