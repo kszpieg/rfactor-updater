@@ -1,5 +1,3 @@
-import sys
-
 import wx
 import krl_ftpservices as krl
 

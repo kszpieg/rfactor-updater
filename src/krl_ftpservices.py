@@ -4,7 +4,6 @@ from dateutil import parser
 from datetime import datetime
 
 server = "54.38.52.41"
-update_dir = ""
 logfile = "krl_update.log"
 ftp = ftplib.FTP(server)
 
@@ -25,8 +24,7 @@ def check_updates():
         time = parser.parse(time_str)
         updates[tokens[3]] = datetime.strftime(time, "%Y-%m-%d %H:%M")
 
-    ordered_updates = (sorted(updates.items(), key=lambda t: t[1], reverse=True))
-    return ordered_updates
+    return updates
 
 
 def download_files(update_dir):
