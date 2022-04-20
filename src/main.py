@@ -14,42 +14,48 @@ class MainPanel(wx.Panel):
         status_box = wx.StaticBox(self, wx.ID_ANY, size=box_size, label="Status:")
         status_box_sizer = wx.StaticBoxSizer(status_box, wx.VERTICAL)
 
-        btn_data = [("Check updates", btn_sizer, self.check_updates),
-                    ("Download files", btn_sizer, self.download_files)]
-        for data in btn_data:
-            label, sizer, handler = data
-            self.btn_builder(label, sizer, handler)
+        # Create buttons
+        check_updates_btn = wx.Button(self, label="Check updates")
+        check_updates_btn.Bind(wx.EVT_BUTTON, self.check_updates)
 
+        self.download_files_btn = wx.Button(self, label="Download files")
+        self.download_files_btn.Bind(wx.EVT_BUTTON, self.download_files)
+        self.download_files_btn.Disable()
+
+        btn_sizer.Add(check_updates_btn, 0, wx.ALL | wx.CENTER, 5)
+        btn_sizer.Add(self.download_files_btn, 0, wx.ALL | wx.CENTER, 5)
+
+        # Create Status box
         self.status_text = wx.StaticText(status_box, wx.ID_ANY, label="It works!", style=wx.ALIGN_CENTER)
         status_box_sizer.Add(self.status_text, wx.ID_ANY, wx.TOP, 10)
 
+        # Add KRL logo
         img_scale = size[0] - box_size[0] + 15
 
         krl_logo_img = wx.Image("../img/krl_logo.png", wx.BITMAP_TYPE_PNG)
         krl_logo_img = krl_logo_img.Scale(img_scale, img_scale, wx.IMAGE_QUALITY_HIGH)
         krl_logo_bitmap = wx.StaticBitmap(self, wx.ID_ANY, wx.Bitmap(krl_logo_img))
 
+        # Set up top section (logo and box)
         info_sizer.Add(krl_logo_bitmap, wx.ALL | wx.ALIGN_LEFT, 5)
         info_sizer.Add(status_box_sizer, 0, wx.ALL | wx.EXPAND, 5)
 
+        # Add authors
         authors_text = wx.StaticText(self, wx.ID_ANY, label="KRL Updater made by K. Szpieg && H. Szolc",
                                      style=wx.ALIGN_CENTER)
         font = wx.Font(9, wx.DEFAULT, wx.ITALIC, wx.NORMAL)
         authors_text.SetFont(font)
 
+        # Set up window's elements
         main_sizer.Add(info_sizer, wx.ALIGN_TOP, 5)
         main_sizer.Add(authors_text, wx.ALIGN_CENTER, 5)
         main_sizer.Add(btn_sizer, wx.ALIGN_BOTTOM, 5)
         self.SetSizer(main_sizer)
 
-    def btn_builder(self, label, sizer, handler):
-        btn = wx.Button(self, label=label)
-        btn.Bind(wx.EVT_BUTTON, handler)
-        sizer.Add(btn, 0, wx.ALL | wx.CENTER, 5)
-
     def check_updates(self, event):
         self.status_text.SetLabel("check updates btn")
         krl.connect_to_ftp_server()
+        self.download_files_btn.Enable()
 
     def download_files(self, event):
         self.status_text.SetLabel("download files btn")
