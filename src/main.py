@@ -14,6 +14,9 @@ class MainPanel(wx.Panel):
         status_box = wx.StaticBox(self, wx.ID_ANY, size=box_size, label="Status:")
         status_box_sizer = wx.StaticBoxSizer(status_box, wx.VERTICAL)
 
+        # Data variables
+        self.updates_dict = {}
+
         # Create buttons
         check_updates_btn = wx.Button(self, label="Check updates")
         check_updates_btn.Bind(wx.EVT_BUTTON, self.check_updates)
@@ -54,6 +57,7 @@ class MainPanel(wx.Panel):
 
     def check_updates(self, event):
         krl.connect_to_ftp_server()
+        self.updates_dict = krl.check_updates()
         self.download_files_btn.Enable()
         wx.MessageBox("Updates loaded...", 'Info', wx.OK | wx.ICON_INFORMATION)
 
