@@ -4,10 +4,9 @@ from dateutil import parser
 from datetime import datetime
 
 server = "54.38.52.41"
-rfactor_dir = "/rFactor/"
+update_dir = ""
 logfile = "krl_update.log"
 ftp = ftplib.FTP(server)
-list_of_folders = []
 
 
 def connect_to_ftp_server():
@@ -30,8 +29,8 @@ def check_updates():
     return ordered_updates
 
 
-def download_files():
-    ftp_link = "ftp://" + server + rfactor_dir
+def download_files(update_dir):
+    ftp_link = "ftp://" + server + '/' + update_dir
     os.system('wget -r -np -nH --cut-dirs=1 ' + ftp_link + ' -P ./download/' + ' -o ' + logfile)
     with open(logfile, "r+") as file:
         new_file = file.readlines()
@@ -40,7 +39,3 @@ def download_files():
             if "anonymous" not in line:
                 file.write(line)
         file.truncate()
-
-
-def download_btn_functionality():
-    download_files()

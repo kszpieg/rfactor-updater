@@ -1,3 +1,5 @@
+import sys
+
 import wx
 import krl_ftpservices as krl
 
@@ -11,8 +13,14 @@ class MainPanel(wx.Panel):
         box_w = screensize[0] * 0.14
         box_h = screensize[1] * 0.1
         box_size = (int(box_w), int(box_h))
-        status_box = wx.StaticBox(self, wx.ID_ANY, size=box_size, label="Status:")
-        status_box_sizer = wx.StaticBoxSizer(status_box, wx.VERTICAL)
+
+        # Create List with updates
+        self.updates_list_ctrl = wx.ListCtrl(
+            self, size=box_size,
+            style=wx.LC_REPORT | wx.BORDER_SUNKEN
+        )
+        self.updates_list_ctrl.InsertColumn(0, "Update\'s name", width=int(box_w * 0.6))
+        self.updates_list_ctrl.InsertColumn(1, "Last modified", width=int(box_w * 0.4))
 
         # Data variables
         self.updates_dict = {}
@@ -28,10 +36,6 @@ class MainPanel(wx.Panel):
         btn_sizer.Add(check_updates_btn, 0, wx.ALL | wx.CENTER, 5)
         btn_sizer.Add(self.download_files_btn, 0, wx.ALL | wx.CENTER, 5)
 
-        # Create Status box
-        self.status_text = wx.StaticText(status_box, wx.ID_ANY, label="It works!", style=wx.ALIGN_CENTER)
-        status_box_sizer.Add(self.status_text, wx.ID_ANY, wx.TOP, 10)
-
         # Add KRL logo
         img_scale = size[0] - box_size[0] + 15
 
@@ -41,7 +45,7 @@ class MainPanel(wx.Panel):
 
         # Set up top section (logo and box)
         info_sizer.Add(krl_logo_bitmap, wx.ALL | wx.ALIGN_LEFT, 5)
-        info_sizer.Add(status_box_sizer, 0, wx.ALL | wx.EXPAND, 5)
+        info_sizer.Add(self.updates_list_ctrl, 0, wx.ALL | wx.EXPAND, 5)
 
         # Add authors
         authors_text = wx.StaticText(self, wx.ID_ANY, label="KRL Updater made by K. Szpieg && H. Szolc",
@@ -58,11 +62,17 @@ class MainPanel(wx.Panel):
     def check_updates(self, event):
         krl.connect_to_ftp_server()
         self.updates_dict = krl.check_updates()
+        index = 0
+        for update in self.updates_dict:
+            index = self.updates_list_ctrl.InsertItem(index, update[0])
+            self.updates_list_ctrl.SetItem(index, 1, update[1])
         self.download_files_btn.Enable()
         wx.MessageBox("Updates loaded...", 'Info', wx.OK | wx.ICON_INFORMATION)
 
     def download_files(self, event):
-        krl.download_btn_functionality()
+        selection = self.updates_list_ctrl.GetFocusedItem()
+        selected_update = self.updates_list_ctrl.GetItemText(selection, 0)
+        krl.download_files(selected_update)
         wx.MessageBox("Update download successfully", 'Info', wx.OK | wx.ICON_INFORMATION)
 
 
