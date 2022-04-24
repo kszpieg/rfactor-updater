@@ -8,8 +8,8 @@ class MainPanel(wx.Panel):
         main_sizer = wx.BoxSizer(wx.VERTICAL)
         btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
         info_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        box_w = screensize[0] * 0.14
-        box_h = screensize[1] * 0.1
+        box_w = window_w * 0.66
+        box_h = window_h * 0.4
         box_size = (int(box_w), int(box_h))
 
         # Create List with updates
@@ -35,7 +35,7 @@ class MainPanel(wx.Panel):
         btn_sizer.Add(self.download_files_btn, 0, wx.ALL | wx.CENTER, 5)
 
         # Add KRL logo
-        img_scale = size[0] - box_size[0] + 15
+        img_scale = window_size[0] - box_size[0] - 50
 
         krl_logo_img = wx.Image("../img/krl_logo.png", wx.BITMAP_TYPE_PNG)
         krl_logo_img = krl_logo_img.Scale(img_scale, img_scale, wx.IMAGE_QUALITY_HIGH)
@@ -78,9 +78,9 @@ class MainFrame(wx.Frame):
     def __init__(self):
         super(MainFrame, self).__init__(parent=None, title="KRL Updater")
         self.panel = MainPanel(self)
-        self.SetMinSize(size)
-        size2 = ((size[0] * 2), (size[1] * 2))
-        self.SetInitialSize(size)
+        self.SetMinSize(window_size)
+        size2 = ((window_size[0] * 2), (window_size[1] * 2))
+        self.SetInitialSize(window_size)
         self.SetMaxSize(size2)
         self.Show()
 
@@ -88,8 +88,8 @@ class MainFrame(wx.Frame):
 if __name__ == '__main__':
     app = wx.App()
     screensize = wx.DisplaySize()
-    w = screensize[0] * 0.2
-    h = screensize[1] * 0.15
-    size = (int(w), int(h))
+    window_w = screensize[0] * 0.4
+    window_h = screensize[1] * 0.25
+    window_size = (int(window_w), int(window_h))
     frame = MainFrame()
     app.MainLoop()
