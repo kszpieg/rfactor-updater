@@ -88,8 +88,8 @@ class MainFrame(wx.Frame):
 if __name__ == '__main__':
     app = wx.App()
     screensize = wx.DisplaySize()
-    window_w = screensize[0] * 0.4
-    window_h = screensize[1] * 0.25
+    window_w = screensize[0] * 0.6
+    window_h = screensize[1] * 0.4
     window_size = (int(window_w), int(window_h))
     frame = MainFrame()
     app.MainLoop()
