@@ -30,7 +30,7 @@ def check_updates():
 
 def download_files(update_dir):
     ftp_link = "ftp://" + server + '/' + update_dir
-    os.system('wget -r -np -nH --cut-dirs=1 ' + ftp_link + ' -P ./' + ' -o ' + logfile)
+    os.system('.\wget.exe -r -np -nH --cut-dirs=1 ' + ftp_link + ' -P ./' + ' -o ' + logfile)
     with open(logfile, "r+") as file:
         new_file = file.readlines()
         file.seek(0)
