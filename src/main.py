@@ -1,6 +1,6 @@
 import wx
 import krl_ftpservices as krl
-
+import krl_wget as wget
 
 class MainPanel(wx.Panel):
     def __init__(self, parent):
@@ -37,7 +37,7 @@ class MainPanel(wx.Panel):
         # Add KRL logo
         img_scale = window_size[0] - box_size[0] - 50
 
-        krl_logo_img = wx.Image("../img/krl_logo.png", wx.BITMAP_TYPE_PNG)
+        krl_logo_img = wx.Image("./img/krl_logo.png", wx.BITMAP_TYPE_PNG)
         krl_logo_img = krl_logo_img.Scale(img_scale, img_scale, wx.IMAGE_QUALITY_HIGH)
         krl_logo_bitmap = wx.StaticBitmap(self, wx.ID_ANY, wx.Bitmap(krl_logo_img))
 
