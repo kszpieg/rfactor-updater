@@ -46,7 +46,7 @@ class MainPanel(wx.Panel):
         info_sizer.Add(self.updates_list_ctrl, 0, wx.ALL | wx.EXPAND, 5)
 
         # Add authors
-        authors_text = wx.StaticText(self, wx.ID_ANY, label="KRL Updater made by K. Szpieg && H. Szolc",
+        authors_text = wx.StaticText(self, wx.ID_ANY, label="KRL Updater v1.0 made by K. Szpieg && H. Szolc",
                                      style=wx.ALIGN_CENTER)
         font = wx.Font(9, wx.DEFAULT, wx.ITALIC, wx.NORMAL)
         authors_text.SetFont(font)
